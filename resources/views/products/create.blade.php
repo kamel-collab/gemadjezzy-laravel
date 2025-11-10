@@ -20,29 +20,37 @@
 
     {{-- ✅ Message de succès (flash) après redirection depuis store() --}}
  
-
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     {{-- ❌ Affichage global des erreurs --}}
+    @if ($errors->any())
+             <div class="alert alert-error">
+            <strong>Veuillez corriger les erreurs ci-dessous :</strong>
+        </div>
+    @endif
+   
 
 
-    <form method="post" action="{{ route('products.store') }}" novalidate>
+   <form method="post" action="{{ route('products.store') }}" novalidate>
         @csrf
 
         <div class="field">
             <label for="name">Nom du produit</label>
-            <input id="name" name="name" type="text"  placeholder="Ex. Clavier mécanique">
-         
+            <input id="name" name="name" type="text" value="{{ old('name') }}" placeholder="Ex. Clavier mécanique">
+            @error('name') <small class="error">{{ $message }}</small> @enderror
         </div>
 
         <div class="field">
             <label for="price">Prix (€)</label>
-            <input id="price" name="price" type="number" step="0.01" min="0"  placeholder="Ex. 89.99">
-         
+            <input id="price" name="price" type="number" step="0.01" min="0" value="{{ old('price') }}" placeholder="Ex. 89.99">
+            @error('price') <small class="error">{{ $message }}</small> @enderror
         </div>
 
         <div class="field">
             <label for="stock">Stock</label>
-            <input id="stock" name="stock" type="number" step="1" min="0"  placeholder="Ex. 10">
-         
+            <input id="stock" name="stock" type="number" step="1" min="0" value="{{ old('stock') }}" placeholder="Ex. 10">
+            @error('stock') <small class="error">{{ $message }}</small> @enderror
         </div>
 
         <div class="field">
@@ -50,15 +58,14 @@
             <select id="category" name="category">
                 <option value="">— Sélectionner —</option>
                 @foreach (['informatique'=>'Informatique', 'accessoires'=>'Accessoires', 'logiciels'=>'Logiciels', 'autre'=>'Autre'] as $val => $lib)
-                    <option value="{{ $val }}" >{{ $lib }}</option>
+                    <option value="{{ $val }}" @selected(old('category') === $val)>{{ $lib }}</option>
                 @endforeach
             </select>
-           
+            @error('category') <small class="error">{{ $message }}</small> @enderror
         </div>
 
         <button type="submit">Ajouter le produit</button>
     </form>
-
  
 </body>
 </html>
