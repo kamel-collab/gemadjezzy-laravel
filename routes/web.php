@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -7,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('home'));
 Route::get('/services', fn() => view('services'));
 Route::get('/contact', fn() => view('contact'));
-Route::get('/article/{n}', function ($n) {
-    return view('article')->with('numero', $n);
-});
+Route::get('/article/{n}',[ArticleController::class,'show'] );
+Route::get('/users', [UserController::class, 'create']);
 
