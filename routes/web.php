@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,3 +13,5 @@ Route::get('/contact', fn() => view('contact'));
 Route::get('/article/{n}',[ArticleController::class,'show'] );
 Route::get('/users', [UserController::class, 'create']);
 Route::post('/users', [UserController::class, 'store']);
+
+
