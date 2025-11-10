@@ -10,8 +10,7 @@ class UserController extends Controller
     {
         return view('user');
     }
-        public function store()
-    {
-       
+    public function store(Request $request) {
+         return "Nom de l'utilisateur: " . $request->input('nom');
     }
 }

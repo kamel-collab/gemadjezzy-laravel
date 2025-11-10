@@ -11,4 +11,4 @@ Route::get('/services', fn() => view('services'));
 Route::get('/contact', fn() => view('contact'));
 Route::get('/article/{n}',[ArticleController::class,'show'] );
 Route::get('/users', [UserController::class, 'create']);
-
+Route::post('/users', [UserController::class, 'store']);

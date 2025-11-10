@@ -1,8 +1,9 @@
 @extends('template')
 @section('content')
-    <form action="">
+    <form action="{{url('users')}}" method="POST">
+        @csrf
         <label for="user">Entrez votre nom</label>
-        <input type="text">
+        <input type="text" name="nom">
         <input type="submit" value="Envoyer">
     </form>
-@endsection
+@endsection 
