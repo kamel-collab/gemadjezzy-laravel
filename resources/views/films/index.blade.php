@@ -25,7 +25,7 @@
                             <td>{{ $film->title }}</td>
 
                             <td>{{ $film->year }}</td>
-                            <td><a href="" class="btn btn-outline-success">afficher</a></td>
+                            <td><a href="{{route('films.show',$film->id)}}" class="btn btn-outline-success">afficher</a></td>
                             <td><a href="" class="btn btn-outline-warning">modifier</a></td>
                             <td><a href="" class="btn btn-outline-danger">delete</a></td>
                         </tr>

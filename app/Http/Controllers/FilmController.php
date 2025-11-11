@@ -12,10 +12,10 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films=Film::all();
-        return view('films.index',compact('films')); 
+        $films = Film::all();
+        return view('films.index', compact('films'));
     }
-  //facebook.com
+    //facebook.com
     /**
      * Show the form for creating a new resource.
      */
@@ -35,9 +35,10 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Film $film)
     {
-        //
+
+        return view('films.show', compact('film'));
     }
 
     /**
