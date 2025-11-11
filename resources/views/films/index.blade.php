@@ -1,6 +1,11 @@
 @extends('template')
 
 @section('content')
+    @session('deleted')
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endsession
     <div class="card">
         <div class="card-header">
             Films
@@ -25,9 +30,16 @@
                             <td>{{ $film->title }}</td>
 
                             <td>{{ $film->year }}</td>
-                            <td><a href="{{route('films.show',$film->id)}}" class="btn btn-outline-success">afficher</a></td>
+                            <td><a href="{{ route('films.show', $film->id) }}" class="btn btn-outline-success">afficher</a>
+                            </td>
                             <td><a href="" class="btn btn-outline-warning">modifier</a></td>
-                            <td><a href="" class="btn btn-outline-danger">delete</a></td>
+                            <td>
+                                <form action="{{ route('films.destroy', $film->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger">supprimer</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
