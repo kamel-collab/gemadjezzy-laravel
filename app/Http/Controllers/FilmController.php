@@ -21,7 +21,7 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+        return view('films.create');
     }
 
     /**
@@ -29,7 +29,16 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'year' => 'required|integer|min:1920|max:' . date('Y'),
+        ]);
+
+      
+        Film::create($request->all());
+
+        return redirect()->route('films.index')->with('success', 'Film created successfully.');
     }
 
     /**

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <main class="section">
+    <main class="section pt-4">
         <div class="container"> 
             @yield('content')
         </div>
