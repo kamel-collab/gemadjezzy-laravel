@@ -6,6 +6,13 @@
             {{ session('deleted') }}
         </div>
     @endsession
+   
+       @session('success')
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endsession
+      <a class="btn btn-primary" href="{{route("films.create")}}">Ajouter un film</a>
     <div class="card">
         <div class="card-header">
             Films
