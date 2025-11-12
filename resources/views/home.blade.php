@@ -1,11 +1,23 @@
-@extends('template')
-
-@section('title')
-    Page d’accueil
-@endsection
+@extends('layouts.app')
 
 @section('content')
-    <h2>Bienvenue sur la page d’accueil</h2>
-    <p>Ce mini site utilise le moteur de template <strong>Blade</strong> de Laravel.</p>
-    <p>Les pages partagent la même structure grâce au layout commun.</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('You are logged in!') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

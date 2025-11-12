@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.app')
 
 @section('content')
     @session('deleted')
@@ -6,13 +6,21 @@
             {{ session('deleted') }}
         </div>
     @endsession
-   
-       @session('success')
+
+    @session('success')
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endsession
-      <a class="btn btn-primary" href="{{route("films.create")}}">Ajouter un film</a>
+    @session('updated')
+        <div class="alert alert-warning">
+            {{ session('updated') }}
+        </div>
+    @endsession
+    @auth
+         <a class="btn btn-primary" href="{{ route('films.create') }}">Ajouter un film</a>  
+    @endauth
+ 
     <div class="card">
         <div class="card-header">
             Films
@@ -39,7 +47,8 @@
                             <td>{{ $film->year }}</td>
                             <td><a href="{{ route('films.show', $film->id) }}" class="btn btn-outline-success">afficher</a>
                             </td>
-                            <td><a href="" class="btn btn-outline-warning">modifier</a></td>
+                            <td><a href="{{ route('films.edit', $film->id) }}" class="btn btn-outline-warning">modifier</a>
+                            </td>
                             <td>
                                 <form action="{{ route('films.destroy', $film->id) }}" method="POST">
                                     @csrf
