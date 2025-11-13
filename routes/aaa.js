@@ -9,3 +9,11 @@ hammouda(function() {
     return 5;
 
 })
+
+let a;
+a= condition ? 2:9
+if (condition) {
+    a=2;
+} else {
+    a=9;
+}

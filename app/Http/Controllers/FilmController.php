@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Film;
 use Illuminate\Http\Request;
 
@@ -10,10 +11,12 @@ class FilmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($slug = null)
     {
-        $films = Film::all();
-        return view('films.index', compact('films'));
+        $films = $slug ? Category::where('slug', $slug)->first()->films : Film::all();
+
+        $categories = Category::all();
+        return view('films.index', compact('films', 'categories','slug'));
     }
     //facebook.com
     /**
@@ -21,7 +24,8 @@ class FilmController extends Controller
      */
     public function create()
     {
-        return view('films.create');
+        $categories = Category::all();
+        return view('films.create', compact('categories'));
     }
 
     /**
@@ -29,13 +33,14 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'year' => 'required|integer|min:1920|max:' . date('Y'),
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-      
+
         Film::create($request->all());
 
         return redirect()->route('films.index')->with('success', 'Film created successfully.');
@@ -47,15 +52,17 @@ class FilmController extends Controller
     public function show(Film $film)
     {
 
+
         return view('films.show', compact('film'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( Film $film)
+    public function edit(Film $film)
     {
-        return view('films.edit', compact('film'));
+        $categories = Category::all();
+        return view('films.edit', compact('film', 'categories'));
     }
 
     /**
@@ -67,6 +74,7 @@ class FilmController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'year' => 'required|integer|min:1920|max:' . date('Y'),
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $film->update($request->all());
@@ -77,10 +85,10 @@ class FilmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( Film $film)
+    public function destroy(Film $film)
     {
-       
-       $film->delete();     
-         return redirect()->route('films.index')->with('deleted','Film deleted successfully.');
+
+        $film->delete();
+        return redirect()->route('films.index')->with('deleted', 'Film deleted successfully.');
     }
 }

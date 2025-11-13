@@ -5,8 +5,9 @@
 {{$film->title}}
         </div>
         <div class="card-body">
-           
+
             <p>Année :{{$film->year}}  </p>
             <p>description :{{$film->description}}</p>
+            <p>Catégorie : {{$film->category->name}}</p>
     </div>
 @endsection

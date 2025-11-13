@@ -5,9 +5,21 @@
 ajouter un filme
         </div>
         <div class="card-body">
-           
+
            <form action="{{route('films.store')}}" method="post">
             @csrf
+            <div class="mb-3">
+                <label for="category_id" class="form-label">Catégorie</label>
+                <select class="form-select" id="category_id" name="category_id" required>
+                    <option value="">Sélectionner une catégorie</option>
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}"
+                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{$category->name}}
+                        </option>
+                    @endforeach
+                     </select>
+            </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Titre</label>
                 <input type="text" value="{{old('title')}}" class="form-control" id="title" name="title" required>

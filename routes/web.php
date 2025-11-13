@@ -19,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 
 // Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
+Route::get('category/{slug}/films', [FilmController::class,'index'])->name('films.category');
 
 Route::get('public/films',[FilmController::class,'index'])->middleware('auth')->name('films.public.index') ;
 Route::resource('films', FilmController::class);
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

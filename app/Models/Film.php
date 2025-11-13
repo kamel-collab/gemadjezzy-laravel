@@ -12,5 +12,10 @@ class Film extends Model
         'title',
         'description',
         'year',
+        'category_id',
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -17,15 +17,23 @@
             {{ session('updated') }}
         </div>
     @endsession
-    @auth
-         <a class="btn btn-primary" href="{{ route('films.create') }}">Ajouter un film</a>  
-    @endauth
- 
+
+         <a class="btn btn-primary" href="{{ route('films.create') }}">Ajouter un film</a>
+
+
     <div class="card">
         <div class="card-header">
             Films
         </div>
         <div class="card-body">
+            <select onchange="window.location.href=this.value" id="">
+                <option value="{{ route('films.index') }}" {{$slug == null ? 'selected' : ''}}>tous</option>
+                @foreach ($categories as $category)
+                    <option value="{{ route('films.category', $category->slug) }}"
+                        {{$slug == $category->slug ? 'selected' : ''}}
+                        >{{ $category->name }}</option>
+                @endforeach
+            </select>
             <table class="table is-hoverable is-fullwidth">
                 <thead>
                     <tr>
@@ -33,6 +41,7 @@
                         <th>Titre</th>
 
                         <th>Année</th>
+                        <th>category</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -45,6 +54,7 @@
                             <td>{{ $film->title }}</td>
 
                             <td>{{ $film->year }}</td>
+                            <td>{{ $film->category->name }}</td>
                             <td><a href="{{ route('films.show', $film->id) }}" class="btn btn-outline-success">afficher</a>
                             </td>
                             <td><a href="{{ route('films.edit', $film->id) }}" class="btn btn-outline-warning">modifier</a>
