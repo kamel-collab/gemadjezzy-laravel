@@ -54,7 +54,10 @@
                             <td>{{ $film->title }}</td>
 
                             <td>{{ $film->year }}</td>
-                            <td>{{ $film->category->name }}</td>
+
+                            <td>@foreach ($film->categories as $c)
+                                {{ $c->name }}<br>
+                            @endforeach</td>
                             <td><a href="{{ route('films.show', $film->id) }}" class="btn btn-outline-success">afficher</a>
                             </td>
                             <td><a href="{{ route('films.edit', $film->id) }}" class="btn btn-outline-warning">modifier</a>

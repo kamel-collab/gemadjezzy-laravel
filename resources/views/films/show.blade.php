@@ -8,6 +8,10 @@
 
             <p>Année :{{$film->year}}  </p>
             <p>description :{{$film->description}}</p>
-            <p>Catégorie : {{$film->category->name}}</p>
+            <p>Catégorie :
+                @foreach ($film->categories as $c)
+                    {{ $c->name }}<br>
+                @endforeach
+            </p>
     </div>
 @endsection

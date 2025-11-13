@@ -10,11 +10,11 @@ ajouter un filme
             @csrf
             <div class="mb-3">
                 <label for="category_id" class="form-label">Catégorie</label>
-                <select class="form-select" id="category_id" name="category_id" required>
-                    <option value="">Sélectionner une catégorie</option>
+                <select class="form-select" id="category_id" name="cats[]" multiple>
+
                     @foreach($categories as $category)
                         <option value="{{$category->id}}"
-                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ in_array($category->id, old('cats', [])) ? 'selected' : '' }}>
                             {{$category->name}}
                         </option>
                     @endforeach

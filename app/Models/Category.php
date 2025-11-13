@@ -8,6 +8,6 @@ class Category extends Model
 {
     public function films()
     {
-        return $this->hasMany(Film::class);
+        return $this->belongsToMany(Film::class);
     }
 }

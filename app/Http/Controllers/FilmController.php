@@ -13,7 +13,7 @@ class FilmController extends Controller
      */
     public function index($slug = null)
     {
-        $films = $slug ? Category::where('slug', $slug)->first()->films : Film::all();
+        $films = Film::all();
 
         $categories = Category::all();
         return view('films.index', compact('films', 'categories','slug'));
@@ -37,11 +37,12 @@ class FilmController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'year' => 'required|integer|min:1920|max:' . date('Y'),
-            'category_id' => 'required|exists:categories,id',
+
         ]);
 
 
-        Film::create($request->all());
+        $film=Film::create($request->all());
+        $film->categories()->attach($request->input('cats'));
 
         return redirect()->route('films.index')->with('success', 'Film created successfully.');
     }
@@ -74,11 +75,11 @@ class FilmController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'year' => 'required|integer|min:1920|max:' . date('Y'),
-            'category_id' => 'required|exists:categories,id',
+
         ]);
 
         $film->update($request->all());
-
+  $film->categories()->sync($request->input('cats'));
         return redirect()->route('films.index')->with('updated', 'Film updated successfully.');
     }
 
@@ -87,7 +88,7 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
-
+   $film->categories()->detach();
         $film->delete();
         return redirect()->route('films.index')->with('deleted', 'Film deleted successfully.');
     }
